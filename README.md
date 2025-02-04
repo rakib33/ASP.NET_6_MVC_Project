@@ -37,5 +37,32 @@
 6. Generate a mobile-responsive card grid layout based on the data for all screen.
 7. No functionality is required to be build. All buttons and forms can be static.
 
+## Create an app that generates a JSON file from Excel
 
+1. Create a solution in visual studio 2022 named AssesmentV4 or you can provide any Name.
+2. Create a ASP.NET Core MVC project under this solution with same name or different name.
+
+   ![image](https://github.com/user-attachments/assets/19c840b5-f99e-4fed-839b-c88d4bbd7191)
+
+3. Select .Net 6 framework and create this project.
+   
+   ![image](https://github.com/user-attachments/assets/71a2b625-4d4f-4903-aa9c-75654cbdd7f1)
+
+4. For database integration install postreSQL from [here](https://www.postgresql.org/download/windows/)
+5. Install pgAdmin also.
+6. Check connection string through pgAdmin.
+   
+   ![image](https://github.com/user-attachments/assets/30c7a4bc-6532-4799-966e-cecc05658b57)
+
+7. Configure appsettings.json. Give Excel file path and json file path and PostreSQL connection string.
+   
+   ```
+   
+   "ConnectionStrings": {
+    "DefaultConnection": "Server=localhost;Port=5432;Database=ProductDB;User Id=postgres;Password=1234"
+    },
+   "ExcelDataSource": "E:\\TechnicalAssesment\\vodus-test-excel.xlsx",
+   "OuputJsonPath": "E:\\TechnicalAssesment\\Order.json",
+    ```
+ 
 
