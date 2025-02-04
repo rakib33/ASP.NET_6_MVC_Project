@@ -157,3 +157,40 @@
           }
       }    
     ```
+   10. Create a C# class Product according Excel data.
+
+  ```
+  public class Product
+  {
+      [Key]
+      public int Id { get; set; }
+      public string Image { get; set; }
+      public string Name { get; set; }
+      public DateTime OrderDate { get; set; }
+      public string Price { get; set; }
+      public string DiscountedPrice { get; set; }
+  }
+  ```
+
+11. Create a folder named Data and create a Database Context class ApplicationDbContext for PostgreSQL.
+
+```
+public class ApplicationDbContext : DbContext
+{
+    public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) { }
+
+    public DbSet<Product> Products { get; set; }
+
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        modelBuilder.Entity<Product>(entity =>
+        {
+        entity.ToTable("Products");
+        entity.Property(p => p.OrderDate)
+        .HasColumnType("timestamp without time zone");
+        });
+    }
+
+}
+```
+
