@@ -233,3 +233,14 @@
           databasePopulator.PopulateDatabase(products);
       }
      ```
+  13. Create Code First Migration to create Database and Table on PostgreSQL
+
+      - Open package manager console
+        ![image](https://github.com/user-attachments/assets/036e6225-3ef8-4e7c-9c19-82546dec880d)
+
+      - Run command **Add-Migration InitailCommit** and **Update-Database**
+      - Open pgAdmin and check database and table created.
+        ![image](https://github.com/user-attachments/assets/38de993a-3422-4cf0-867e-88fd2c2f145f)
+
+ 14. Now run the application. It will create the json file with Excel data and also insert the data into database table. 
+  
