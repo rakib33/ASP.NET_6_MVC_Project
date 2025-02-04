@@ -193,4 +193,24 @@
       
       }
       ```
+ 12. This application will parse the Excel data and then convert and saved as json data file also PostreSQL database.
+
+     - Saved Excel data as json file when application run. Open Pragram.cs file , copy and past this section of code.
+
+     ```
+      #region ExcelDataProcessing
+      
+      var excelFilePath = Path.Combine(@"", configuration["ExcelDataSource"]);
+      string jsonFilePath = Path.Combine(@"", configuration["OuputJsonPath"]);
+      
+      var excelParser = new ExcelParser();
+      var products = excelParser.ParseExcel(excelFilePath);
+      
+      // Serialize to JSON and save to file (if the file does not exist)
+      var jsonSerializer = new JsonSerializer();
+      jsonSerializer.SerializeToFile(products, jsonFilePath);
+      
+      #endregion
+     ```
+     - 
 
