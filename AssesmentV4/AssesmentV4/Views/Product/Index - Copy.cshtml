@@ -1,0 +1,168 @@
+﻿@model ProductViewModel
+
+<div class="card shadow mb-4">
+    <!-- Column Selection Dropdown -->
+    <div class="card-header py-3">
+        <div class="d-flex justify-content-between">
+            <h6 class="m-0 font-weight-bold text-primary">Product Search</h6>
+            <div class="dropdown">
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="columnDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="fas fa-columns"></i> Columns
+                </button>
+                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="columnDropdown">
+                    <form id="columnForm">
+                        @foreach (var col in new List<string> { "Id", "Image", "Name", "OrderDate", "Price", "DiscountedPrice" })
+                        {
+                            <div class="dropdown-item">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox"
+                                           id="@col" name="visibleColumns" value="@col"
+                                    @(Model.VisibleColumns.Contains(col) ? "checked" : "")>
+                                    <label class="form-check-label w-100" for="@col">
+                                        @col
+                                    </label>
+                                </div>
+                            </div>
+                        }
+                    </form>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+
+    <!-- Search Form (same as before, but add hidden fields) -->
+    <form asp-action="Index" method="get" id="searchForm">
+        <input type="hidden" name="sortColumn" value="@Model.SortColumn">
+        <input type="hidden" name="sortDirection" value="@Model.SortDirection">
+        <!-- Existing search fields -->
+    </form>
+
+    <!-- Table -->
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        @foreach (var col in Model.VisibleColumns)
+                        {
+                            <th>
+                                @if (col != "Image")
+                                {
+                                    <a href="javascript:void(0)"
+                                       onclick="sortTable('@col')"
+                                       class="text-dark">
+                                        @col
+                                        @if (Model.SortColumn == col)
+                                        {
+                                            <i class="fas @(Model.SortDirection == "asc" ? "fa-sort-up" : "fa-sort-down")"></i>
+                                        }
+                                        else
+                                        {
+                                            <i class="fas fa-sort"></i>
+                                        }
+                                    </a>
+                                }
+                                else
+                                {
+                                    @col
+                                }
+                            </th>
+                        }
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var product in Model.Products)
+                    {
+                        <tr>
+                            @foreach (var col in Model.VisibleColumns)
+                            {
+                                switch (col)
+                                {
+                                    case "Id":
+                                        <td>@product.Id</td>
+                                        break;
+                                    case "Image":
+                                        <td><img src="@product.Image" class="img-thumbnail" style="max-width: 60px;"></td>
+                                        break;
+                                    case "Name":
+                                        <td>@product.Name</td>
+                                        break;
+                                    case "OrderDate":
+                                        <td>@product.OrderDate.ToString("dd MMM yyyy")</td>
+                                        break;
+                                    case "Price":
+                                        <td class="text-right">@product.Price</td>
+                                        break;
+                                    case "DiscountedPrice":
+                                        <td class="text-right">@product.DiscountedPrice</td>
+                                        break;
+                                }
+                            }
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+   @*  <script>
+        // Column selection handler
+        document.querySelectorAll('.dropdown-item input[type="checkbox"]').forEach(checkbox => {
+            checkbox.addEventListener('change', () => {
+                document.getElementById('searchForm').submit();
+            });
+        });
+
+        // Sorting handler
+        function sortTable(column) {
+            const currentSortCol = '@Model.SortColumn';
+            const currentSortDir = '@Model.SortDirection';
+
+            let newSortDir = 'asc';
+            if (column === currentSortCol) {
+                newSortDir = currentSortDir === 'asc' ? 'desc' : 'asc';
+            }
+
+            document.querySelector('input[name="sortColumn"]').value = column;
+            document.querySelector('input[name="sortDirection"]').value = newSortDir;
+            document.getElementById('searchForm').submit();
+        }
+    </script> *@
+
+    <script>
+    // Prevent dropdown from closing when clicking checkboxes
+    $(document).ready(function() {
+        $('.dropdown-menu').on('click', function(e) {
+            e.stopPropagation();
+        });
+
+        // Handle checkbox changes
+        $('input[name="visibleColumns"]').change(function() {
+            const selectedColumns = [];
+            $('input[name="visibleColumns"]:checked').each(function() {
+                selectedColumns.push($(this).val());
+            });
+
+            // Update form submission
+            $('input[name="visibleColumns"]').remove();
+            $('#searchForm').append(
+                selectedColumns.map(col =>
+                    $('<input>').attr({
+                        type: 'hidden',
+                        name: 'visibleColumns',
+                        value: col
+                    })
+                )
+            );
+
+            $('#searchForm').submit();
+        });
+    });
+</script>
+
+
+}
