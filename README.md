@@ -198,6 +198,8 @@
      - Saved Excel data as json file when application run. Open Pragram.cs file , copy and past this section of code.
 
      ```
+      // You can now directly access your configuration.
+      IConfiguration configuration = builder.Configuration;
       #region ExcelDataProcessing
       
       var excelFilePath = Path.Combine(@"", configuration["ExcelDataSource"]);
@@ -212,5 +214,22 @@
       
       #endregion
      ```
-     - 
+     - Inject database connection string in Program.cs file and also add the Excel data into Database
 
+     ```
+      //Configure the database context
+      builder.Services.AddDbContext<ApplicationDbContext>(options =>
+          options.UseNpgsql(configuration["ConnectionStrings:DefaultConnection"]));
+     ```
+     - Insert Excel data if data not exists when application run , add this code below builder.Build()
+
+     ```
+       var app = builder.Build();
+      // Populate the database (if the table or data does not exist)
+      using (var scope = app.Services.CreateScope())
+      {
+          var dbContext = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+          var databasePopulator = new DatabasePopulator(dbContext);
+          databasePopulator.PopulateDatabase(products);
+      }
+     ```
