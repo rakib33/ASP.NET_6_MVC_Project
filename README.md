@@ -239,8 +239,89 @@
         ![image](https://github.com/user-attachments/assets/036e6225-3ef8-4e7c-9c19-82546dec880d)
 
       - Run command **Add-Migration InitailCommit** and **Update-Database**
+        
       - Open pgAdmin and check database and table created.
+        
         ![image](https://github.com/user-attachments/assets/38de993a-3422-4cf0-867e-88fd2c2f145f)
 
  14. Now run the application. It will create the json file with Excel data and also insert the data into database table. 
-  
+
+ ## Task B
+ 
+ 1. Implement a controller action that retrieves data from the JSON file or PostgreSQL database.
+    
+    - Before creating controller we use repository pattern for that. We have a Product model and two option
+      for featching data. One for fetching data from created json file and another is from database.
+      We will create a Interface **IProductRepository.cs** under Interfaces folder.
+
+      ```
+      public interface IProductRepository
+      {
+      
+          /// <summary>
+          /// get all products
+          /// </summary>
+          /// <returns></returns>
+            IQueryable<Product> GetAllProducts();
+          /// <summary>
+          /// Retrieve all products with search criteria
+          /// </summary>
+          IQueryable<Product> GetProducts(ProductSearchCriteria criteria);
+      }
+      ```
+      
+     - Create a Repository for fetching data from Json under Repositories folder.
+
+       ```
+         /// <summary>
+         /// Repository to retrive data from Json file
+         /// </summary>
+         public class JsonProductRepository : IProductRepository
+         {
+             //path to the json file
+             private readonly string _jsonPath;
+         
+             public JsonProductRepository(string jsonPath)
+             {
+                 _jsonPath = jsonPath;
+             }
+         
+             /// <summary>
+             /// Get all products
+             /// </summary>
+             /// <returns></returns>
+             /// <exception cref="FileNotFoundException"></exception>
+             public IQueryable<Product> GetAllProducts()
+             {
+         
+                 if (!File.Exists(_jsonPath))
+                     throw new FileNotFoundException("JSON file not found.");
+         
+                 string json = File.ReadAllText(_jsonPath);
+                 var products = JsonConvert.DeserializeObject<List<Product>>(json);
+                 return products.AsQueryable();
+             }
+         
+             /// <summary>
+             /// Retrieve all products with search criteria
+             /// </summary>
+             /// <param name="criteria"></param>
+             /// <returns></returns>
+             public IQueryable<Product> GetProducts(ProductSearchCriteria criteria)
+             {
+                 var query = GetAllProducts();
+         
+                 if (!string.IsNullOrEmpty(criteria.ProductName))
+                     query = query.Where(p => p.Name.ToLower().Contains(criteria.ProductName.ToLower()));
+         
+                 if (criteria.StartDate.HasValue)
+                     query = query.Where(p => p.OrderDate >= criteria.StartDate.Value);
+         
+                 if (criteria.EndDate.HasValue)
+                     query = query.Where(p => p.OrderDate <= criteria.EndDate.Value);
+         
+                 return query;
+             }
+         
+         }
+       ```
