@@ -1,0 +1,52 @@
+﻿.nav-tabs .nav-link {
+    border: 1px solid transparent;
+    border-top-left-radius: .25rem;
+    border-top-right-radius: .25rem;
+    color: #a39fa6;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.nav-tabs .nav-link.active {
+    background-color: #f8f9fa;
+    color: #ad42f5;
+    border-color: transparent;
+    border-bottom: 3px solid #ad42f5;
+}
+
+@media (max-width: 767.98px) {
+    .d-flex {
+        flex-wrap: wrap;
+    }
+
+    .search-bar {
+        width: 100%;
+        margin-top: 10px;
+    }
+}
+
+/*responsive text size*/
+@media (max-width: 576px) {
+    .title {
+        font-size: 16px;
+    }
+}
+
+@media (min-width: 577px) and (max-width: 768px) {
+    .title {
+        font-size: 18px;
+    }
+}
+
+@media (min-width: 769px) and (max-width: 992px) {
+    .title {
+        font-size: 20px;
+    }
+}
+
+@media (min-width: 993px) {
+    .title {
+        font-size: 22px;
+    }
+}
+
+/*responsive text size*/

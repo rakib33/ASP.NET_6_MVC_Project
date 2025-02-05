@@ -4,6 +4,9 @@ using Newtonsoft.Json;
 
 namespace AssesmentV4.Repositories
 {
+    /// <summary>
+    /// Repository to retrive data from Json file
+    /// </summary>
     public class JsonProductRepository : IProductRepository
     {
         //path to the json file
@@ -11,11 +14,14 @@ namespace AssesmentV4.Repositories
 
         public JsonProductRepository(string jsonPath)
         {
-
             _jsonPath = jsonPath;
-
         }
 
+        /// <summary>
+        /// Get all products
+        /// </summary>
+        /// <returns></returns>
+        /// <exception cref="FileNotFoundException"></exception>
         public IQueryable<Product> GetAllProducts()
         {
 
@@ -27,6 +33,11 @@ namespace AssesmentV4.Repositories
             return products.AsQueryable();
         }
 
+        /// <summary>
+        /// Retrieve all products with search criteria
+        /// </summary>
+        /// <param name="criteria"></param>
+        /// <returns></returns>
         public IQueryable<Product> GetProducts(ProductSearchCriteria criteria)
         {
             var query = GetAllProducts();
@@ -42,8 +53,6 @@ namespace AssesmentV4.Repositories
 
             return query;
         }
-
-        /// <inheritdoc />
 
     }
 }

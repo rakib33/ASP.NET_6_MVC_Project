@@ -4,6 +4,9 @@ using AssesmentV4.Models;
 
 namespace AssesmentV4.Repositories
 {
+    /// <summary>
+    /// Repository to retrive data from database
+    /// </summary>
     public class PostgresProductRepository : IProductRepository
     {
         private readonly ApplicationDbContext _dbContext;
@@ -13,13 +16,22 @@ namespace AssesmentV4.Repositories
             _dbContext = dbContext;
         }
 
+        /// <summary>
+        /// Get all products
+        /// </summary>
+        /// <returns></returns>
+        /// <exception cref="FileNotFoundException"></exception>
         public IQueryable<Product> GetAllProducts()
         {
             return _dbContext.Products;
         }
 
 
-        /// <inheritdoc />
+        /// <summary>
+        /// Retrieve all products with search criteria
+        /// </summary>
+        /// <param name="criteria"></param>
+        /// <returns></returns>
         public IQueryable<Product> GetProducts(ProductSearchCriteria criteria)
         {
             var query = GetAllProducts();

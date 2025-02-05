@@ -6,6 +6,9 @@ using System.Diagnostics;
 
 namespace AssesmentV4.Controllers
 {
+    /// <summary>
+    /// Product controller to retrive data for view
+    /// </summary>
     public class ProductController : Controller
     {
         private IProductRepository _productRepository;
@@ -16,6 +19,10 @@ namespace AssesmentV4.Controllers
            _serviceProvider = serviceProvider;
         }
 
+        /// <summary>
+        /// determine which repository to use based on the source
+        /// </summary>
+        /// <param name="source"></param>
         private void SetProductRepository(string source)
         {
             if (source?.ToLower() == "json")
@@ -43,7 +50,10 @@ namespace AssesmentV4.Controllers
             return View(products.ToList());
         }
 
-
+        /// <summary>
+        /// JQuery DataTable view with column sorting and search and filtering
+        /// </summary>
+        /// <returns></returns>
         public IActionResult DataTableView()
         {
             _productRepository = _serviceProvider.GetServices<IProductRepository>().OfType<JsonProductRepository>().First();
