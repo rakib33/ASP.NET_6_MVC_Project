@@ -572,5 +572,27 @@
       
       <link rel="stylesheet" href="~/css/index.css" asp-append-version="true" />
 
-
      ```
+
+ -  Create a css file index.css under wwwroot/css folder, and add this style
+   
+   ```
+     .card-header {
+         background-color: #f8f9fc !important;
+     }
+   
+     .input-group-text {
+         background-color: #fff;
+     }
+   
+     .table thead th {
+         border-bottom: 2px solid #e3e6f0;
+     }
+   
+     .img-thumbnail {
+         padding: 0.25rem;
+         background-color: #fff;
+         border: 1px solid #dddfeb;
+         border-radius: 0.35rem;
+     }
+   ```
