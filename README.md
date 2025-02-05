@@ -66,11 +66,11 @@
     ```
  8. Ensure you have the following NuGet packages installed:
 
-      Microsoft.EntityFrameworkCore
-      Microsoft.EntityFrameworkCore.Tools
-      Npgsql.EntityFrameworkCore.PostgreSQL (for PostgreSQL support)
-      EPPlus (for Excel file parsing)
-      Newtonsoft.Json (for JSON serialization)
+      - Microsoft.EntityFrameworkCore
+      - Microsoft.EntityFrameworkCore.Tools
+      - Npgsql.EntityFrameworkCore.PostgreSQL (for PostgreSQL support)
+      - EPPlus (for Excel file parsing)
+      - Newtonsoft.Json (for JSON serialization)
  
  9. Create Services folder and create below classes under this folder.
      
