@@ -10,48 +10,90 @@
 </head>
 <body>
 
-<div class="container mt-3">
-    <div class="row align-items-center">
-        <div class="col">
-            <h4 class="mb-0 title">MY PURCHASES</h4>
+    <div class="container mt-3">
+        <div class="row align-items-center">
+            <div class="col">
+                <h4 class="mb-0 title">MY PURCHASES</h4>
+            </div>
+            <div class="col">
+                <input type="text" class="form-control search-bar" placeholder="Search Orders to Receives">
+            </div>
         </div>
-        <div class="col">
-            <input type="text" class="form-control search-bar" placeholder="Search Orders to Receives">
+
+        <ul class="nav nav-tabs d-flex w-100 mt-3" id="myTab" role="tablist">
+            <li class="nav-item flex-fill">
+                <a class="nav-link  text-center" id="to-pay-tab" data-toggle="tab" href="#to-pay" role="tab" aria-controls="to-pay" aria-selected="true">To Pay</a>
+            </li>
+            <li class="nav-item flex-fill">
+                <a class="nav-link active text-center" id="to-receive-tab" data-toggle="tab" href="#to-receive" role="tab" aria-controls="to-receive" aria-selected="false">To Receive</a>
+            </li>
+            <li class="nav-item flex-fill">
+                <a class="nav-link text-center" id="completed-tab" data-toggle="tab" href="#completed" role="tab" aria-controls="completed" aria-selected="false">Completed</a>
+            </li>
+            <li class="nav-item flex-fill">
+                <a class="nav-link text-center" id="refund-tab" data-toggle="tab" href="#refund" role="tab" aria-controls="refund" aria-selected="false">Refund</a>
+            </li>
+        </ul>
+        <div class="tab-content" id="myTabContent">
+            <div class="tab-pane fade" id="to-pay" role="tabpanel" aria-labelledby="to-pay-tab">
+                <p>Content for To Pay tab.</p>
+            </div>
+            <div class="tab-pane fade show active" id="to-receive" role="tabpanel" aria-labelledby="to-receive-tab">
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <p>Vodus Store  ></p>
+                    </div>
+
+                    <div class="col-md-6 text-center">
+                        <p>Order Date: 2 Sep 2022</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-2 col-3">
+                        <img src="https://vouponlive.blob.core.windows.net/products/558/images/small_0_0070fab8-5ea5-44fa-a3d0-3a9926f3ced1.jpeg" width="50" height="50" />
+                    </div>
+                    <div class="col-md-3 col-3 font-size-14">
+                        <div class="row">
+                           Nikon Camera
+                        </div>
+                        <div class="row">
+                           <panel style="color: #999;">Variation: Black XL</panel>
+                        </div>
+                        <div class="row">
+                            <select name="source" style="background-color: #eae8e8; border: 0px;color: #999;">
+                                <option value="database" selected>RM5 Discount(50 VPoints)</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-1 col-3">
+                        <button class="button">x2</button>
+                    </div>
+                    <div class="col-md-2 col-3">
+                        <div class="price-panel">
+                            <span class="original-price">$100.00</span>
+                            <span class="new-price">$75.00</span>
+                        </div>
+                    </div>
+                    <div class="col-md-2 col-sm-3 order-md-last">
+                        <button type="button" class="status-button">Pending Seller ></button>
+                    </div>
+                </div>
+
+            </div>
+
+
+            <div class="tab-pane fade" id="completed" role="tabpanel" aria-labelledby="completed-tab">
+                <p>Content for Completed tab.</p>
+            </div>
+            <div class="tab-pane fade" id="refund" role="tabpanel" aria-labelledby="refund-tab">
+                <p>Content for Refund tab.</p>
+            </div>
         </div>
     </div>
 
-    <ul class="nav nav-tabs d-flex w-100 mt-3" id="myTab" role="tablist">
-        <li class="nav-item flex-fill">
-            <a class="nav-link  text-center" id="to-pay-tab" data-toggle="tab" href="#to-pay" role="tab" aria-controls="to-pay" aria-selected="true">To Pay</a>
-        </li>
-        <li class="nav-item flex-fill">
-            <a class="nav-link active text-center" id="to-receive-tab" data-toggle="tab" href="#to-receive" role="tab" aria-controls="to-receive" aria-selected="false">To Receive</a>
-        </li>
-        <li class="nav-item flex-fill">
-            <a class="nav-link text-center" id="completed-tab" data-toggle="tab" href="#completed" role="tab" aria-controls="completed" aria-selected="false">Completed</a>
-        </li>
-        <li class="nav-item flex-fill">
-            <a class="nav-link text-center" id="refund-tab" data-toggle="tab" href="#refund" role="tab" aria-controls="refund" aria-selected="false">Refund</a>
-        </li>
-    </ul>
-    <div class="tab-content" id="myTabContent">
-        <div class="tab-pane fade show active" id="to-pay" role="tabpanel" aria-labelledby="to-pay-tab">
-            <p>Content for To Pay tab.</p>
-        </div>
-        <div class="tab-pane fade" id="to-receive" role="tabpanel" aria-labelledby="to-receive-tab">
-            <p>Content for To Receive tab.</p>
-        </div>
-        <div class="tab-pane fade" id="completed" role="tabpanel" aria-labelledby="completed-tab">
-            <p>Content for Completed tab.</p>
-        </div>
-        <div class="tab-pane fade" id="refund" role="tabpanel" aria-labelledby="refund-tab">
-            <p>Content for Refund tab.</p>
-        </div>
-    </div>
-</div>
-
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-<script src="script.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    @*     <script src="script.js"></script> *@
 </body>
 </html>

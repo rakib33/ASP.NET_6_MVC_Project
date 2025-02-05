@@ -6,12 +6,62 @@
     transition: background-color 0.3s, color 0.3s;
 }
 
-.nav-tabs .nav-link.active {
-    background-color: #f8f9fa;
-    color: #ad42f5;
-    border-color: transparent;
-    border-bottom: 3px solid #ad42f5;
+    .nav-tabs .nav-link.active {
+        background-color: #f8f9fa;
+        color: #ad42f5;
+        border-color: transparent;
+        border-bottom: 3px solid #ad42f5;
+    }
+
+.font-size-14 {
+    font-size: 14px;
 }
+
+.status-button{
+    font-size: 13px;
+    color: #ffffff;
+    border: 0px;
+    border-radius: 7px;
+    background: #f57328;
+}
+}
+.drop-box {
+    background-color: #eae8e8;
+    border: 0px;
+    color: #999;
+}
+
+.button {
+    border: solid 1.5px #999;
+    background: white;
+    color: #999;
+}
+/*price strikethrough style*/
+
+.price-panel {
+    /* font-size: 1.5em;*/ /* Adjust as needed for your design */
+    font-weight: bold;
+}
+
+.original-price {
+    text-decoration: line-through;
+    color: #999; /* Gray color for the original price */
+    margin-right: 10px; /* Space between the original and new price */
+}
+
+.new-price {
+    /*  color: #e63946; */ /* Highlighted color for new price */
+}
+
+.price-panel .original-price::before {
+    content: '(';
+}
+
+.price-panel .original-price::after {
+    content: ')';
+}
+
+/*price strikethrough style*/
 
 @media (max-width: 767.98px) {
     .d-flex {
