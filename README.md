@@ -462,3 +462,10 @@
            }
        }
        ``` 
+   - Change the conventional routing in program.cs file. Add Product controller as startup.
+
+     ```
+      app.MapControllerRoute(
+          name: "default",
+          pattern: "{controller=Product}/{action=Index}/{id?}");
+     ```
