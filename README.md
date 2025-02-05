@@ -596,3 +596,83 @@
          border-radius: 0.35rem;
      }
    ```
+## Task C
+ - HTML Table Customizatio
+ - Implement sorting functionality for each column (A-Z, Z-A).
+ - Allow users to customize which columns are displayed in the table.
+ - Create another view page **DataTableView** under Views folder and write this code. For above feature we need to use JQuery datatable.
+
+   ```
+      @model IEnumerable<Product>
+      
+      <link href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap4.min.css" rel="stylesheet">
+      <link href="https://cdn.datatables.net/buttons/2.4.1/css/buttons.bootstrap4.min.css" rel="stylesheet">
+      <link rel="stylesheet" href="~/css/index.css" asp-append-version="true" />
+      <div class="card shadow mb-4">
+          <!-- Card Header - Search Criteria -->
+          <div class="card-header py-3">
+              <h6 class="m-0 font-weight-bold text-primary">Products</h6>
+          </div>
+      
+          <div class="card-body">
+              <div class="table-responsive">
+                  <table id="productsTable" class="table table-bordered table-striped  table-hover" width="100%">
+                      <thead class="thead-light">
+                          <tr>
+                              <th>ID</th>
+                              <th>Image</th>
+                              <th>Product Name</th>
+                              <th>Order Date</th>
+                              <th>Price</th>
+                              <th>Discounted Price</th>
+                          </tr>
+                      </thead>
+                      <tbody>
+                          @foreach (var product in Model)
+                          {
+                              <tr>
+                                  <td>@product.Id</td>
+                                  <td class="text-center">
+                                      <img src="@product.Image" class="img-thumbnail" style="max-width: 60px;">
+                                  </td>
+                                  <td>@product.Name</td>
+                                  <td>@product.OrderDate.ToString("dd MMM yyyy")</td>
+                                  <td class="text-right">@product.Price</td>
+                                  <td class="text-right">@product.DiscountedPrice</td>
+                              </tr>
+                          }
+                      </tbody>
+                  </table>
+              </div>
+          </div>
+      </div>
+      @section Scripts {
+          <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+          <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+          <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap4.min.js"></script>
+          <script src="https://cdn.datatables.net/buttons/2.4.1/js/dataTables.buttons.min.js"></script>
+          <script src="https://cdn.datatables.net/buttons/2.4.1/js/buttons.bootstrap4.min.js"></script>
+          <script src="https://cdn.datatables.net/buttons/2.4.1/js/buttons.colVis.min.js"></script>
+      
+          <script>
+              $(document).ready(function () {
+                  var table = $('#productsTable').DataTable({
+                      dom: 'Bfrtip',
+                      buttons: [
+                          {
+                              extend: 'colvis',
+                              text: 'Column Visibility',
+                              className: 'btn btn-primary'
+                          }
+                      ],
+                      paging: true,
+                      pageLength: 10,
+                      responsive: true,
+                      columnDefs: [
+                          { orderable: true, targets: '_all' }
+                      ]
+                  });
+              });
+          </script>
+      }
+   ```
