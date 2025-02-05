@@ -24,7 +24,6 @@ namespace AssesmentV4.Services
                             Id = int.Parse(worksheet.Cells[row, 1].Text),
                             Image = worksheet.Cells[row, 2].Text,
                             Name = worksheet.Cells[row, 3].Text,
-                            //OrderDate = DateTime.Parse(worksheet.Cells[row, 4].Text),
 
                             // Parse as DateTime with Kind=Unspecified
                            OrderDate = DateTime.SpecifyKind(

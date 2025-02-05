@@ -1,71 +1,60 @@
 ﻿using AssesmentV4.Interfaces;
 using AssesmentV4.Models;
+using AssesmentV4.Repositories;
 using Microsoft.AspNetCore.Mvc;
+using System.Diagnostics;
 
 namespace AssesmentV4.Controllers
 {
     public class ProductController : Controller
     {
-
-        private readonly IProductRepository _databaseRepository;
-        private readonly IProductRepository _jsonRepository;
-        public ProductController(IProductRepository jsonProductRepository, IProductRepository postgresProductRepository)
+        private IProductRepository _productRepository;
+        private readonly IServiceProvider _serviceProvider;
+        private  IQueryable<Product> products;
+        public ProductController(IServiceProvider serviceProvider)
         {
-            _jsonRepository = jsonProductRepository;
-            _databaseRepository = postgresProductRepository;
-        }
-        // Add to ProductController.cs
-        [HttpGet]
-        public IActionResult Index(string source, ProductSearchCriteria criteria,
-                                  string sortColumn = "Name", string sortDirection = "asc",
-                                  List<string> visibleColumns = null)
-        {
-            // Column visibility logic
-            var allColumns = new List<string> { "Id", "Image", "Name", "OrderDate", "Price", "DiscountedPrice" };
-
-            // Get visible columns from cookie or default
-            //if(visibleColumns.Count == 0)
-            //visibleColumns = allColumns;
-            //else
-                visibleColumns = Request.Cookies["VisibleColumns"]?.Split(',')?.ToList() ?? allColumns;
-
-            // Save visible columns to cookie
-            Response.Cookies.Append("VisibleColumns", string.Join(',', visibleColumns),
-                                  new CookieOptions { Expires = DateTime.Now.AddDays(7) });
-
-            IQueryable<Product> products = GetSortedProducts(source, criteria, sortColumn, sortDirection);
-
-            var vm = new ProductViewModel
-            {
-                Products = products.ToList(),
-                VisibleColumns = visibleColumns,
-                SortColumn = sortColumn,
-                SortDirection = sortDirection,
-                SearchCriteria = criteria,
-                Source = source
-            };
-
-            return View(vm);
+           _serviceProvider = serviceProvider;
         }
 
-        private IQueryable<Product> GetSortedProducts(string source, ProductSearchCriteria criteria,
-                                             string sortColumn, string sortDirection)
+        private void SetProductRepository(string source)
         {
-            IQueryable<Product> products;
-            var direction = sortDirection == "asc" ? "ASC" : "DESC";
-
             if (source?.ToLower() == "json")
             {
-                products = _jsonRepository.GetProducts(criteria);
-                    //.OrderBy($"{sortColumn} {direction}");
+                _productRepository = _serviceProvider.GetServices<IProductRepository>().OfType<JsonProductRepository>().First();
             }
             else
             {
-                products = _databaseRepository.GetProducts(criteria);
-                           //.OrderBy($"{sortColumn} {direction}");
+                _productRepository = _serviceProvider.GetServices<IProductRepository>().OfType<PostgresProductRepository>().First();
             }
+        }
+        /// <summary>
+        /// Retrieve products from either JSON or the database with optional search criteria.
+        /// </summary>
+        /// <param name="source">Data source ("json" or "database")</param>
+        /// <param name="criteria">Search criteria</param>
+        public IActionResult Index(string source, ProductSearchCriteria criteria)
+        {
+            SetProductRepository(source);
+            products = _productRepository.GetProducts(criteria);
+            // Maintain search parameters in the view
+            ViewBag.CurrentSource = source;
+            ViewBag.CurrentCriteria = criteria;
 
-            return products;
+            return View(products.ToList());
+        }
+
+
+        public IActionResult DataTableView()
+        {
+            _productRepository = _serviceProvider.GetServices<IProductRepository>().OfType<JsonProductRepository>().First();
+            products = _productRepository.GetAllProducts();
+            return View(products.ToList());
+        }
+
+        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+        public IActionResult Error()
+        {
+            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
     }
 }

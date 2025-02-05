@@ -34,7 +34,7 @@ jsonSerializer.SerializeToFile(products, jsonFilePath);
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
-// Register the services
+
 // Register repositories
 builder.Services.AddScoped<IProductRepository>(provider =>
 {
@@ -74,6 +74,6 @@ app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
+    pattern: "{controller=Product}/{action=Index}/{id?}");
 
 app.Run();
