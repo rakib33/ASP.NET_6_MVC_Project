@@ -469,3 +469,108 @@
           name: "default",
           pattern: "{controller=Product}/{action=Index}/{id?}");
      ```
+2. Create a page to load content using JSON or PostgreSQL.
+   - Provide an option to choose between loading data from the JSON file or the PostgreSQL database.
+   - Add functionality to filter content based on a date range.
+   - Implement a textbox search to filter content based on user input.
+   - Create a view name Index under Views folder. The code with all facilities attached here.
+
+     ```
+      @{
+          ViewData["Title"] = "Product Page";
+      }
+      @model List<Product>      
+      
+      <div class="card shadow mb-4">
+          <!-- Card Header - Search Criteria -->
+          <div class="card-header py-3">
+              <h6 class="m-0 font-weight-bold text-primary">Products</h6>
+              <hr>
+              <form asp-action="Index" method="get" class="form-inline">
+                  <div class="row align-items-center">
+                      <div class="col-md-2">
+                          <div class="form-group">
+                              <label>Data Source:</label>
+                              <select name="source" class="form-control">
+                                  <option value="database" selected=@(ViewBag.CurrentSource == "database")>Database</option>
+                                  <option value="json" selected=@(ViewBag.CurrentSource == "json")>JSON</option>
+                              </select>
+                          </div>
+                      </div>
+      
+                      <div class="col-md-2">
+                          <div class="form-group">
+                              <label>Product Name:</label>
+                              <input type="text" name="criteria.ProductName"
+                                     class="form-control" placeholder="Search by name..."
+                                     value="@ViewBag.CurrentCriteria?.ProductName">
+                          </div>
+                      </div>
+      
+                      <div class="col-md-2">
+                          <div class="form-group">
+                              <label>From Date:</label>
+                              <input type="date" name="criteria.StartDate"
+                                     class="form-control"
+                                     value="@(ViewBag.CurrentCriteria?.StartDate?.ToString("yyyy-MM-dd"))">
+                          </div>
+                      </div>
+      
+                      <div class="col-md-2">
+                          <div class="form-group">
+                              <label>To Date:</label>
+                              <input type="date" name="criteria.EndDate"
+                                     class="form-control"
+                                     value="@(ViewBag.CurrentCriteria?.EndDate?.ToString("yyyy-MM-dd"))">
+                          </div>
+                      </div>
+                      <div class="col-md-2 mt-4">
+                          <button type="submit" class="btn btn-primary">
+                              <i class="fas fa-search"></i> Search
+                          </button>
+                          <a asp-action="Index" class="btn btn-secondary">Reset</a>
+                      </div>
+      
+      
+                  </div>
+              </form>
+          </div>
+      
+          <!-- Card Body - Results Table -->
+          <div class="card-body">
+              <div class="table-responsive">
+                  <table class="table table-bordered table-striped table-hover" width="100%">
+                      <thead class="thead-light">
+                          <tr>
+                              <th>ID</th>
+                              <th>Image</th>
+                              <th>Product Name</th>
+                              <th>Order Date</th>
+                              <th>Price</th>
+                              <th>Discounted Price</th>
+                          </tr>
+                      </thead>
+                      <tbody>
+                          @foreach (var product in Model)
+                          {
+                              <tr>
+                                  <td>@product.Id</td>
+                                  <td class="text-center">
+                                      <img src="@product.Image" class="img-thumbnail" style="max-width: 60px;">
+                                  </td>
+                                  <td>@product.Name</td>
+                                  <td>@product.OrderDate.ToString("dd MMM yyyy")</td>
+                                  <td class="text-right">@product.Price</td>
+                                  <td class="text-right">@product.DiscountedPrice</td>
+                              </tr>
+                          }
+                      </tbody>
+                  </table>
+              </div>
+          </div>
+      </div>
+      
+      <link rel="stylesheet" href="~/css/index.css" asp-append-version="true" />
+
+
+     ```
