@@ -676,3 +676,293 @@
           </script>
       }
    ```
+## Front-end Tasks
+ 1. create a simple ASP.NET 6 MVC appllication **JQueryAssessment**
+ 2. Now Create a Index.cshtml page and add this html code there. Here we create a html and in JQuery calling Order.json file to load data.
+    Order.json placed under wwwroot folder.
+
+    ```
+      <!DOCTYPE html>
+      <html lang="en">
+      <head>
+          <meta charset="UTF-8">
+          <meta name="viewport" content="width=device-width, initial-scale=1.0">
+          <title>Responsive Tabs</title>
+          <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+          <link rel="stylesheet" href="~/css/styles.css" asp-append-version="true" />
+      
+           <!-- Include Ionicons from CDN -->
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/7.4.0/collection/components/icon/icon.min.css" rel="stylesheet">
+      </head>
+      <body>
+      
+          <div class="container mt-3">
+              <div class="row align-items-center">
+                  <div class="col d-inline">
+                      <h4 class="mb-0 title">MY PURCHASES</h4>
+                  </div>
+                  <div class="col d-inline">
+                      <input type="text" class="form-control search-bar" placeholder="Search Orders to Receives">
+                  </div>
+              </div>
+      
+              <ul class="nav nav-tabs d-flex w-100 mt-3" id="myTab" role="tablist">
+                  <li class="nav-item flex-fill">
+                      <a class="nav-link  text-center" id="to-pay-tab" data-toggle="tab" href="#to-pay" role="tab" aria-controls="to-pay" aria-selected="true">ToPay</a>
+                  </li>
+                  <li class="nav-item flex-fill">
+                      <a class="nav-link active text-center" id="to-receive-tab" data-toggle="tab" href="#to-receive" role="tab" aria-controls="to-receive" aria-selected="false">ToReceive</a>
+                  </li>
+                  <li class="nav-item flex-fill">
+                      <a class="nav-link text-center" id="completed-tab" data-toggle="tab" href="#completed" role="tab" aria-controls="completed" aria-selected="false">Completed</a>
+                  </li>
+                  <li class="nav-item flex-fill">
+                      <a class="nav-link text-center" id="refund-tab" data-toggle="tab" href="#refund" role="tab" aria-controls="refund" aria-selected="false">Refund</a>
+                  </li>
+              </ul>
+              <div class="tab-content" id="myTabContent">
+                  <div class="tab-pane fade" id="to-pay" role="tabpanel" aria-labelledby="to-pay-tab">
+                      <p>Content for To Pay tab.</p>
+                  </div>
+                  <div class="tab-pane fade show active" id="to-receive" role="tabpanel" aria-labelledby="to-receive-tab">
+      
+                      <div id="output">
+      
+                      </div>
+                  </div>
+      
+      
+                  <div class="tab-pane fade" id="completed" role="tabpanel" aria-labelledby="completed-tab">
+                      <p>Content for Completed tab.</p>
+                  </div>
+                  <div class="tab-pane fade" id="refund" role="tabpanel" aria-labelledby="refund-tab">
+                      <p>Content for Refund tab.</p>
+                  </div>
+              </div>
+          </div>
+      
+          <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+          <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+          <script src="https://cdn.jsdelivr.net/npm/dayjs@1.10.7/dayjs.min.js"></script>
+        <script>
+              $(document).ready(function () {
+              $.ajax({
+                  url: '/Order.json',  // Path relative to wwwroot
+                  dataType: 'json',
+                  success: function (data) {
+                      var rows = '';
+                      $.each(data, function (index, item) {
+      
+                          // Format the date using Day.js
+                         var formattedDate = dayjs(item.OrderDate).format("DD MMM YYYY");
+                          var name = item.Name.substring(0, 35) + '...';
+                          rows += `
+                       <div class="mt-3">
+      
+                  <div class="row align-items-center">
+                      <div class="col d-inline" style="font-weight: 600;">
+                           <p class="heading d-inline">Vodus Store  ></p>
+                      </div>
+                      <div class="col d-inline text-center">
+                         <p class="heading d-inline">Order Date: ${formattedDate}</p>
+                      </div>
+                   </div>
+      
+      
+      
+                       <div class="row mt-1">
+                      <div class="col-md-2 col-3">
+                          <img src="${item.Image}" width="80" height="80" />
+                      </div>
+                      <div class="col-md-3 col-3 font-size-14">
+                          <div class="row">
+                              ${name}
+                          </div>
+                          <div class="row">
+                              <select name="source" style="background-color: #eae8e8; border: 0px;color: #999;">
+                                  <option value="database" selected style="background-color: #eae8e8; border: 0px;color: #999;">RM5 Discount(50 VPoints)</option>
+                              </select>
+                          </div>
+                          <div class="row">
+                              <panel style="color: #999;">Variation: Black XL</panel>
+                          </div>
+      
+                      </div>
+                      <div class="col-md-1 col-3 mt-4">
+                          <div class="button">x2</div>
+                      </div>
+                      <div class="col-md-2 col-3 mt-4">
+                          <div class="price-panel font-size-14">
+                              <span class="original-price">${item.Price}</span>
+                              <span class="new-price">${item.DiscountedPrice}</span>
+                          </div>
+                      </div>
+                      <div class="col-md-2 col-sm-3 order-md-last mt-4" style="text-align: right;">
+                          <button type="button" class="status-button">Pending Seller ></button>
+                      </div>
+                  </div>
+                  </div>`;
+      
+                      });
+                      $('#output').html(rows);
+                  },
+                  error: function (xhr, status, error) {
+                      console.error("Error loading JSON:", error);
+                  }
+              });
+          });
+        </script>
+      
+      </body>
+      </html>
+
+    ```
+4. create a style styles.css under wwwroot/css folder and add this styel.
+
+   ```
+         .nav-tabs .nav-link {
+          border: 1px solid transparent;
+          border-top-left-radius: .25rem;
+          border-top-right-radius: .25rem;
+          color: #a39fa6;
+          transition: background-color 0.3s, color 0.3s;
+         }
+      
+          .nav-tabs .nav-link.active {
+              background-color: #f8f9fa;
+              color: #ad42f5;
+              border-color: transparent;
+              border-bottom: 3px solid #ad42f5;
+          }
+      
+      .font-size-14 {
+          font-size: 14px;
+      }
+      
+      .status-button{
+          font-size: 13px;
+          color: #ffffff;
+          border: 0px;
+          border-radius: 7px;
+          background: #f57328;
+      }
+      }
+      .drop-box {
+          background-color: #eae8e8;
+          border: 0px;
+          color: #999;
+      }
+      
+      .button {
+          border: solid 1.5px #999;
+          background: white;
+          color: #999;
+          font-size: 13px;
+          height: 21px;
+          width: 22px;
+          display: flex;
+          justify-content: center;  /* Horizontally centers the content */
+          align-items: center;
+      }
+      .truncated-text {
+        white-space: nowrap; /* Prevent the text from wrapping to the next line */
+        overflow: hidden;    /* Hide any text that overflows the container */
+        text-overflow: ellipsis; /* Add an ellipsis (…) when the text overflows */
+        width: 200px; /* Set a maximum width for the text container */
+      }
+      
+      
+      /*price strikethrough style*/
+      
+      .price-panel {
+          font-weight: bold;
+      }
+      
+      .original-price {
+          text-decoration: line-through;
+          color: #999; /* Gray color for the original price */
+          margin-right: 10px; /* Space between the original and new price */
+      }
+      
+      .price-panel .original-price::before {
+          content: '(';
+      }
+      
+      .price-panel .original-price::after {
+          content: ')';
+      }
+      
+      ul > li {
+          width: 50px;
+      }
+      /*price strikethrough style*/
+      
+      @media (max-width: 767.98px) {
+          .d-flex {
+              flex-wrap: wrap;
+          }
+      
+          .search-bar {
+              width: 100%;
+              margin-top: 10px;
+          }
+      }
+      
+      /*responsive text size*/
+      @media (max-width: 576px) {
+          .title {
+              font-size: 16px;
+          }
+          .search-bar{
+              font-size: 10px;
+          }
+          .heading{
+          font-size: 12px;
+      }
+      }
+      
+      @media (min-width: 577px) and (max-width: 768px) {
+          .title {
+              font-size: 18px;
+          }
+      .search-bar{
+              font-size: 12px;
+      }
+      .heading{
+          font-size: 12px;
+      }
+      
+      @media (min-width: 769px) and (max-width: 992px) {
+          .title {
+              font-size: 20px;
+          }
+      }
+      .search-bar{
+              font-size: 14px;
+          }
+      .heading{
+          font-size: 13px;
+      }
+      }
+      
+      @media (min-width: 993px) {
+          .title {
+              font-size: 22px;
+          }
+          .search-bar{
+              font-size: 16px;
+          }
+      }
+      
+      /*responsive text size*/
+   ```
+   4. Now build and run the project.
+   5. Desktop view
+      
+      ![DesktopScreen1](https://github.com/user-attachments/assets/f24d7cb7-6f5b-457e-9f20-9b60c5cb469b)
+
+    7. Mobile responsive view.
+      
+      ![MobileScreen1](https://github.com/user-attachments/assets/7e41b96a-d8ad-49b6-adf0-b9148b098bd2)
+
+   8. Check the browsing video in the video folder.
