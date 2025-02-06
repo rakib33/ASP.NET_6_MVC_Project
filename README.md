@@ -676,6 +676,19 @@
           </script>
       }
    ```
+   - Now run the application.
+   - ![image](https://github.com/user-attachments/assets/f07641d5-f615-40e0-9783-3590e83d2238)
+
+   - ![image](https://github.com/user-attachments/assets/ae75f732-34b0-4a4a-910c-8d81808709d3)
+
+   - ![image](https://github.com/user-attachments/assets/7a2f2a72-a6e1-4acb-adb5-3e452832e3f0)
+
+   - Select Customized table view where column visibility options is added.
+     
+   - ![image](https://github.com/user-attachments/assets/a597d082-d4bb-46bb-ac13-78f649e18241)
+
+   - ![image](https://github.com/user-attachments/assets/4e6d6b08-7f81-416d-8416-1acb7f741e4b)
+
 ## Front-end Tasks
  1. create a simple ASP.NET 6 MVC appllication **JQueryAssessment**
  2. Now Create a Index.cshtml page and add this html code there. Here we create a html and in JQuery calling Order.json file to load data.
