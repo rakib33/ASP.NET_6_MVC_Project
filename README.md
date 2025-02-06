@@ -816,3 +816,143 @@
       </html>
 
     ```
+3. create a style styles.css under wwwroot/css folder and add this styel.
+
+   ```
+         .nav-tabs .nav-link {
+          border: 1px solid transparent;
+          border-top-left-radius: .25rem;
+          border-top-right-radius: .25rem;
+          color: #a39fa6;
+          transition: background-color 0.3s, color 0.3s;
+         }
+      
+          .nav-tabs .nav-link.active {
+              background-color: #f8f9fa;
+              color: #ad42f5;
+              border-color: transparent;
+              border-bottom: 3px solid #ad42f5;
+          }
+      
+      .font-size-14 {
+          font-size: 14px;
+      }
+      
+      .status-button{
+          font-size: 13px;
+          color: #ffffff;
+          border: 0px;
+          border-radius: 7px;
+          background: #f57328;
+      }
+      }
+      .drop-box {
+          background-color: #eae8e8;
+          border: 0px;
+          color: #999;
+      }
+      
+      .button {
+          border: solid 1.5px #999;
+          background: white;
+          color: #999;
+          font-size: 13px;
+          height: 21px;
+          width: 22px;
+          display: flex;
+          justify-content: center;  /* Horizontally centers the content */
+          align-items: center;
+      }
+      .truncated-text {
+        white-space: nowrap; /* Prevent the text from wrapping to the next line */
+        overflow: hidden;    /* Hide any text that overflows the container */
+        text-overflow: ellipsis; /* Add an ellipsis (…) when the text overflows */
+        width: 200px; /* Set a maximum width for the text container */
+      }
+      
+      
+      /*price strikethrough style*/
+      
+      .price-panel {
+          font-weight: bold;
+      }
+      
+      .original-price {
+          text-decoration: line-through;
+          color: #999; /* Gray color for the original price */
+          margin-right: 10px; /* Space between the original and new price */
+      }
+      
+      .price-panel .original-price::before {
+          content: '(';
+      }
+      
+      .price-panel .original-price::after {
+          content: ')';
+      }
+      
+      ul > li {
+          width: 50px;
+      }
+      /*price strikethrough style*/
+      
+      @media (max-width: 767.98px) {
+          .d-flex {
+              flex-wrap: wrap;
+          }
+      
+          .search-bar {
+              width: 100%;
+              margin-top: 10px;
+          }
+      }
+      
+      /*responsive text size*/
+      @media (max-width: 576px) {
+          .title {
+              font-size: 16px;
+          }
+          .search-bar{
+              font-size: 10px;
+          }
+          .heading{
+          font-size: 12px;
+      }
+      }
+      
+      @media (min-width: 577px) and (max-width: 768px) {
+          .title {
+              font-size: 18px;
+          }
+      .search-bar{
+              font-size: 12px;
+      }
+      .heading{
+          font-size: 12px;
+      }
+      
+      @media (min-width: 769px) and (max-width: 992px) {
+          .title {
+              font-size: 20px;
+          }
+      }
+      .search-bar{
+              font-size: 14px;
+          }
+      .heading{
+          font-size: 13px;
+      }
+      }
+      
+      @media (min-width: 993px) {
+          .title {
+              font-size: 22px;
+          }
+          .search-bar{
+              font-size: 16px;
+          }
+      }
+      
+      /*responsive text size*/
+   ```
+   
