@@ -74,15 +74,18 @@
                     var name = item.Name.substring(0, 35) + '...';
                     rows += `
                  <div class="mt-3">
-                <div class="row">
-                <div class="col-xs-6 col-sm-6 col-md-6">
-                    <p class="d-inline">Vodus Store  ></p>
-                </div>
 
-                <div class="col-xs-6 col-sm-6 col-md-6 text-center">
-                    <p class="d-inline">Order Date: ${formattedDate}</p>
+            <div class="row align-items-center">
+                <div class="col d-inline">
+                     <p class="heading d-inline">Vodus Store  ></p>
                 </div>
-            </div>
+                <div class="col d-inline text-center">
+                   <p class="heading d-inline">Order Date: ${formattedDate}</p>
+                </div>
+             </div>
+
+
+
                  <div class="row mt-1">
                 <div class="col-md-2 col-3">
                     <img src="${item.Image}" width="80" height="80" />

@@ -93,6 +93,9 @@ ul > li {
     .search-bar{
         font-size: 10px;
     }
+    .heading{
+    font-size: 12px;
+}
 }
 
 @media (min-width: 577px) and (max-width: 768px) {
@@ -102,14 +105,21 @@ ul > li {
 .search-bar{
         font-size: 12px;
 }
+.heading{
+    font-size: 12px;
+}
 
 @media (min-width: 769px) and (max-width: 992px) {
     .title {
         font-size: 20px;
     }
-}.search-bar{
+}
+.search-bar{
         font-size: 14px;
     }
+.heading{
+    font-size: 13px;
+}
 }
 
 @media (min-width: 993px) {
