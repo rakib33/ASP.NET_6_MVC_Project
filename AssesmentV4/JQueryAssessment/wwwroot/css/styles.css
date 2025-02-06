@@ -68,12 +68,10 @@
 .price-panel .original-price::after {
     content: ')';
 }
-.svg-container {
+
+ul > li {
     width: 50px;
-    height: 50px;
-    background-image: url('~/images/chevron-forward-outline.svg');
-    background-size: cover;
-  }
+}
 /*price strikethrough style*/
 
 @media (max-width: 767.98px) {
