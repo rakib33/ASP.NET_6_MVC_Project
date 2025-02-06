@@ -35,6 +35,18 @@
     border: solid 1.5px #999;
     background: white;
     color: #999;
+    font-size: 13px;
+    height: 21px;
+    width: 22px;
+    display: flex;
+    justify-content: center;  /* Horizontally centers the content */
+    align-items: center;
+}
+.truncated-text {
+  white-space: nowrap; /* Prevent the text from wrapping to the next line */
+  overflow: hidden;    /* Hide any text that overflows the container */
+  text-overflow: ellipsis; /* Add an ellipsis (…) when the text overflows */
+  width: 200px; /* Set a maximum width for the text container */
 }
 /*price strikethrough style*/
 
@@ -49,10 +61,6 @@
     margin-right: 10px; /* Space between the original and new price */
 }
 
-.new-price {
-    /*  color: #e63946; */ /* Highlighted color for new price */
-}
-
 .price-panel .original-price::before {
     content: '(';
 }
@@ -60,7 +68,12 @@
 .price-panel .original-price::after {
     content: ')';
 }
-
+.svg-container {
+    width: 50px;
+    height: 50px;
+    background-image: url('~/images/chevron-forward-outline.svg');
+    background-size: cover;
+  }
 /*price strikethrough style*/
 
 @media (max-width: 767.98px) {
@@ -79,17 +92,25 @@
     .title {
         font-size: 16px;
     }
+    .search-bar{
+        font-size: 10px;
+    }
 }
 
 @media (min-width: 577px) and (max-width: 768px) {
     .title {
         font-size: 18px;
     }
+.search-bar{
+        font-size: 12px;
 }
 
 @media (min-width: 769px) and (max-width: 992px) {
     .title {
         font-size: 20px;
+    }
+}.search-bar{
+        font-size: 14px;
     }
 }
 
@@ -97,6 +118,10 @@
     .title {
         font-size: 22px;
     }
+    .search-bar{
+        font-size: 16px;
+    }
 }
 
 /*responsive text size*/
+
