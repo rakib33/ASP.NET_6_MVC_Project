@@ -678,7 +678,8 @@
    ```
 ## Front-end Tasks
  1. create a simple ASP.NET 6 MVC appllication **JQueryAssessment**
- 2. Now Create a Index.cshtml page and add this html code there.
+ 2. Now Create a Index.cshtml page and add this html code there. Here we create a html and in JQuery calling Order.json file to load data.
+    Order.json placed under wwwroot folder.
 
     ```
       <!DOCTYPE html>
@@ -744,7 +745,7 @@
           <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
           <script src="https://cdn.jsdelivr.net/npm/dayjs@1.10.7/dayjs.min.js"></script>
         <script>
-                $(document).ready(function () {
+              $(document).ready(function () {
               $.ajax({
                   url: '/Order.json',  // Path relative to wwwroot
                   dataType: 'json',
@@ -816,7 +817,7 @@
       </html>
 
     ```
-3. create a style styles.css under wwwroot/css folder and add this styel.
+4. create a style styles.css under wwwroot/css folder and add this styel.
 
    ```
          .nav-tabs .nav-link {
@@ -955,4 +956,13 @@
       
       /*responsive text size*/
    ```
-   
+   4. Now build and run the project.
+   5. Desktop view
+      
+      ![DesktopScreen1](https://github.com/user-attachments/assets/f24d7cb7-6f5b-457e-9f20-9b60c5cb469b)
+
+    7. Mobile responsive view.
+      
+      ![MobileScreen1](https://github.com/user-attachments/assets/7e41b96a-d8ad-49b6-adf0-b9148b098bd2)
+
+   8. Check the browsing video in the video folder.
