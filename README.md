@@ -676,3 +676,143 @@
           </script>
       }
    ```
+## Front-end Tasks
+ 1. create a simple ASP.NET 6 MVC appllication **JQueryAssessment**
+ 2. Now Create a Index.cshtml page and add this html code there.
+
+    ```
+      <!DOCTYPE html>
+      <html lang="en">
+      <head>
+          <meta charset="UTF-8">
+          <meta name="viewport" content="width=device-width, initial-scale=1.0">
+          <title>Responsive Tabs</title>
+          <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+          <link rel="stylesheet" href="~/css/styles.css" asp-append-version="true" />
+      
+           <!-- Include Ionicons from CDN -->
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/7.4.0/collection/components/icon/icon.min.css" rel="stylesheet">
+      </head>
+      <body>
+      
+          <div class="container mt-3">
+              <div class="row align-items-center">
+                  <div class="col d-inline">
+                      <h4 class="mb-0 title">MY PURCHASES</h4>
+                  </div>
+                  <div class="col d-inline">
+                      <input type="text" class="form-control search-bar" placeholder="Search Orders to Receives">
+                  </div>
+              </div>
+      
+              <ul class="nav nav-tabs d-flex w-100 mt-3" id="myTab" role="tablist">
+                  <li class="nav-item flex-fill">
+                      <a class="nav-link  text-center" id="to-pay-tab" data-toggle="tab" href="#to-pay" role="tab" aria-controls="to-pay" aria-selected="true">ToPay</a>
+                  </li>
+                  <li class="nav-item flex-fill">
+                      <a class="nav-link active text-center" id="to-receive-tab" data-toggle="tab" href="#to-receive" role="tab" aria-controls="to-receive" aria-selected="false">ToReceive</a>
+                  </li>
+                  <li class="nav-item flex-fill">
+                      <a class="nav-link text-center" id="completed-tab" data-toggle="tab" href="#completed" role="tab" aria-controls="completed" aria-selected="false">Completed</a>
+                  </li>
+                  <li class="nav-item flex-fill">
+                      <a class="nav-link text-center" id="refund-tab" data-toggle="tab" href="#refund" role="tab" aria-controls="refund" aria-selected="false">Refund</a>
+                  </li>
+              </ul>
+              <div class="tab-content" id="myTabContent">
+                  <div class="tab-pane fade" id="to-pay" role="tabpanel" aria-labelledby="to-pay-tab">
+                      <p>Content for To Pay tab.</p>
+                  </div>
+                  <div class="tab-pane fade show active" id="to-receive" role="tabpanel" aria-labelledby="to-receive-tab">
+      
+                      <div id="output">
+      
+                      </div>
+                  </div>
+      
+      
+                  <div class="tab-pane fade" id="completed" role="tabpanel" aria-labelledby="completed-tab">
+                      <p>Content for Completed tab.</p>
+                  </div>
+                  <div class="tab-pane fade" id="refund" role="tabpanel" aria-labelledby="refund-tab">
+                      <p>Content for Refund tab.</p>
+                  </div>
+              </div>
+          </div>
+      
+          <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+          <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+          <script src="https://cdn.jsdelivr.net/npm/dayjs@1.10.7/dayjs.min.js"></script>
+        <script>
+                $(document).ready(function () {
+              $.ajax({
+                  url: '/Order.json',  // Path relative to wwwroot
+                  dataType: 'json',
+                  success: function (data) {
+                      var rows = '';
+                      $.each(data, function (index, item) {
+      
+                          // Format the date using Day.js
+                         var formattedDate = dayjs(item.OrderDate).format("DD MMM YYYY");
+                          var name = item.Name.substring(0, 35) + '...';
+                          rows += `
+                       <div class="mt-3">
+      
+                  <div class="row align-items-center">
+                      <div class="col d-inline" style="font-weight: 600;">
+                           <p class="heading d-inline">Vodus Store  ></p>
+                      </div>
+                      <div class="col d-inline text-center">
+                         <p class="heading d-inline">Order Date: ${formattedDate}</p>
+                      </div>
+                   </div>
+      
+      
+      
+                       <div class="row mt-1">
+                      <div class="col-md-2 col-3">
+                          <img src="${item.Image}" width="80" height="80" />
+                      </div>
+                      <div class="col-md-3 col-3 font-size-14">
+                          <div class="row">
+                              ${name}
+                          </div>
+                          <div class="row">
+                              <select name="source" style="background-color: #eae8e8; border: 0px;color: #999;">
+                                  <option value="database" selected style="background-color: #eae8e8; border: 0px;color: #999;">RM5 Discount(50 VPoints)</option>
+                              </select>
+                          </div>
+                          <div class="row">
+                              <panel style="color: #999;">Variation: Black XL</panel>
+                          </div>
+      
+                      </div>
+                      <div class="col-md-1 col-3 mt-4">
+                          <div class="button">x2</div>
+                      </div>
+                      <div class="col-md-2 col-3 mt-4">
+                          <div class="price-panel font-size-14">
+                              <span class="original-price">${item.Price}</span>
+                              <span class="new-price">${item.DiscountedPrice}</span>
+                          </div>
+                      </div>
+                      <div class="col-md-2 col-sm-3 order-md-last mt-4" style="text-align: right;">
+                          <button type="button" class="status-button">Pending Seller ></button>
+                      </div>
+                  </div>
+                  </div>`;
+      
+                      });
+                      $('#output').html(rows);
+                  },
+                  error: function (xhr, status, error) {
+                      console.error("Error loading JSON:", error);
+                  }
+              });
+          });
+        </script>
+      
+      </body>
+      </html>
+
+    ```
